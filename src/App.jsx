@@ -82,7 +82,7 @@ export default function App() {
 
   const processVideo = async () => {
       const now = Date.now();
-      if (now - lastRunTime.current > 100) {
+      if (now - lastRunTime.current > 30) {
           lastRunTime.current = now;
 
           if (
@@ -289,13 +289,18 @@ export default function App() {
   return (
     <div style={styles.mainContainer}>
       <div style={styles.cameraBox}>
-        <Webcam 
+            <Webcam 
             key={facingMode}
             ref={webcamRef} 
-            videoConstraints={{ facingMode: facingMode }} 
+            videoConstraints={{ 
+                facingMode: facingMode,
+                width: 640,    // <--- THIS MAKES IT FAST (Resolution)
+                height: 480    // <--- THIS MAKES IT FAST
+            }} 
             style={{ width: "100%", height: "100%", objectFit: "cover", transform: transformStyle, position: "absolute", top:0, left:0, zIndex: 1 }} 
             audio={false}
         />
+
         <canvas 
             ref={canvasRef} 
             style={{ width: "100%", height: "100%", objectFit: "cover", transform: transformStyle, position: "absolute", top:0, left:0, zIndex: 2 }} 
